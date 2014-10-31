@@ -2,6 +2,19 @@ package JAVA_IO;
 
 /**
  * Created by tencent on 14/10/31.
+ * IO, 编解码 DEMO
+ *
+ * 参考:
+ * http://www.ibm.com/developerworks/cn/java/j-lo-javaio/
+ * http://developer.51cto.com/art/201309/410902.htm
+ * http://www.cnblogs.com/lich/archive/2011/12/11/2283700.html
+ * 字节流与字符流的区别
+ 字节流和字符流使用是非常相似的，那么除了操作代码的不同之外，还有哪些不同呢？
+ 字节流在操作的时候本身是不会用到缓冲区（内存）的，是与文件本身直接操作的，而字符流在操作的时候是使用到缓冲区的
+ 字节流在操作文件时，即使不关闭资源（close方法），文件也能输出，但是如果字符流不使用close方法的话，则不会输出任何内容，说明字符流用的是缓冲区，并且可以使用flush方法强制进行刷新缓冲区，这时才能在不close的情况下输出内容
+ 那开发中究竟用字节流好还是用字符流好呢？
+ 在所有的硬盘上保存文件或进行传输的时候都是以字节的方法进行的，包括图片也是按字节完成，而字符是只有在内存中才会形成的，所以使用字节的操作是最多的。
+ 如果要java程序实现一个拷贝功能，应该选用字节流进行操作（可能拷贝的是图片），并且采用边读边写的方式（节省内存）。
  */
 import java.io.*;
 
@@ -13,7 +26,7 @@ public class IODemo {
     }
     public  IODemo(){
         //文件读写
-        //方式1, 流式字节读写
+        //方式1, streamWriter, streamReader 流式读写, writer和reader是JAVA提供的可直接操作字符的类, stream则只能读写byte[]字节
         try{
             outputStream = new FileOutputStream("ioTest.txt");
             streamWriter = new OutputStreamWriter(outputStream, "UTF-8");
